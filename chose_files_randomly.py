@@ -5,16 +5,19 @@
 import os
 import numpy as np
 import argparse
-
+import shutil
+from tqdm import tqdm
+# from progressbar import progressbar 
 #%%
 parser = argparse.ArgumentParser()
 parser.add_argument("src_path", help="a source directory path.")
 parser.add_argument("dst_path", help="a distination directory.")
-
+parser.add_argument("size",     help="a number of sampling from files.")
 #%%
-args   = parser.parse_args()
-src_path = args.src_path
-dst_path = args.dst_path
+args        = parser.parse_args()
+src_path    = args.src_path
+dst_path    = args.dst_path
+ssize       = int(args.size)
 # src_path =  os.getcwd()
 #%%
 def parse_dir_file_surface(path):
@@ -55,6 +58,10 @@ def parse_files_deeply(path_list):
     return fpath_list
 #%%
 fpath_list = parse_files_deeply(src_path)
-print(fpath_list)
-np.random.choice(range(10000), replace=False, size=30)
+path_sampled = np.random.choice(fpath_list, replace=False, size=ssize)
+# %%
+os.makedirs(dst_path, exist_ok=True)
+for src in tqdm(path_sampled):
+    print("src: {}, dst: {}".format(src, dst_path))
+    shutil.copy(src, dst_path)
 # %%
