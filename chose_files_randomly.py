@@ -9,13 +9,13 @@ import argparse
 #%%
 parser = argparse.ArgumentParser()
 parser.add_argument("src_path", help="a source directory path.")
-parser.add_argument("dist_path", help="a distination directory.")
+parser.add_argument("dst_path", help="a distination directory.")
 
 #%%
-# args   = parser.parse_args()
-# src_path = args.src_path
-# dst_path = args.dst_path
-src_path =  os.getcwd()
+args   = parser.parse_args()
+src_path = args.src_path
+dst_path = args.dst_path
+# src_path =  os.getcwd()
 #%%
 def parse_dir_file_surface(path):
     tokens = os.listdir(path=path)
@@ -54,6 +54,7 @@ def parse_files_deeply(path_list):
 #         print(dirpath)
     return fpath_list
 #%%
-fpath_list = parse_files_deeply(".")
+fpath_list = parse_files_deeply(src_path)
 print(fpath_list)
 np.random.choice(range(10000), replace=False, size=30)
+# %%
